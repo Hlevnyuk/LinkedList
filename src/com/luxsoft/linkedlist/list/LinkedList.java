@@ -1,6 +1,7 @@
 package com.luxsoft.linkedlist.list;
 import java.util.StringJoiner;
-public class LinkedList implements List {
+import java.util.Iterator;
+public class LinkedList implements List, Iterable {
     Node head;
     Node tail;
     int size = 0;
@@ -9,7 +10,7 @@ public class LinkedList implements List {
         if(value == null){
             throw new NullPointerException("You cannot add null element");
         }
-        if(size==0){
+        if(size == 0){
             Node newNode = new Node(value);
             head = tail = newNode;
             size++;
@@ -178,12 +179,48 @@ public class LinkedList implements List {
     }
     @Override
     public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(", ", "(", ")");
-        Node current = head;
-        while (current != null) {
-            stringJoiner.add(current.getValue().toString());
-            current = current.getNext();
+        if (isEmpty()) {
+            return "[]";
+        }
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        for (Object o : this) {
+            stringJoiner.add(String.valueOf(o));
         }
         return stringJoiner.toString();
+    }
+    @Override
+    public Iterator iterator() {
+        return new LinkedListIterator();
+    }
+    private class LinkedListIterator implements Iterator {
+        private int position;
+        @Override
+        public boolean hasNext() {
+            return position < size;
+        }
+        @Override
+        public Object next() {
+            Node node = getNode(position);
+            position++;
+            return node.value;
+        }
+    }
+    Node getNode(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node current;
+        if (index < (size / 2)) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        } else {
+            current = tail;
+            for (int i = size - 1; i > index; i--) {
+                current = current.prev;
+            }
+        }
+        return current;
     }
 }
