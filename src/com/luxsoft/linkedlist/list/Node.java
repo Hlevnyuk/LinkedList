@@ -1,9 +1,9 @@
 package com.luxsoft.linkedlist.list;
-public class Node {
-    Node next;
-    Node prev;
-    Object value;
-    public Node(Object value) {
+public class Node<T> {
+    Node<T> next;
+    Node<T> prev;
+    T value;
+    public Node(T value) {
         this.value = value;
     }
     public Node getNext() {
@@ -21,7 +21,7 @@ public class Node {
     public Object getValue() {
         return value;
     }
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 }

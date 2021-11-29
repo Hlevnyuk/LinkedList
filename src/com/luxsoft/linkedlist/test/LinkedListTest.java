@@ -12,7 +12,7 @@ public class LinkedListTest {
         linkedList.add("Tolik");
         linkedList.add("The");
         linkedList.add("Best");
-        assertEquals("(Tolik, The, Best)", linkedList.toString());
+        assertEquals("[Tolik, The, Best]", linkedList.toString());
     }
     @DisplayName("test Last Index Of Return Negative When Object Does Not Contains")
     @Test
